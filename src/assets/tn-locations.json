@@ -1,0 +1,268 @@
+{
+  "gouvernorats": [
+    {
+      "id": "tunis",
+      "nom": "Tunis",
+      "villes": [
+        { "id": "tunis", "nom": "Tunis" },
+        { "id": "le_bardo", "nom": "Le Bardo" },
+        { "id": "le_kram", "nom": "Le Kram" },
+        { "id": "sidi_bou_said", "nom": "Sidi Bou Saïd" },
+        { "id": "carthage", "nom": "Carthage" }
+      ]
+    },
+    {
+      "id": "ariana",
+      "nom": "Ariana",
+      "villes": [
+        { "id": "ariana", "nom": "Ariana" },
+        { "id": "soukra", "nom": "Soukra" },
+        { "id": "raoued", "nom": "Raoued" },
+        { "id": "mnihla", "nom": "Mnihla" },
+        { "id": "sidi_thabet", "nom": "Sidi Thabet" }
+      ]
+    },
+    {
+      "id": "ben_arous",
+      "nom": "Ben Arous",
+      "villes": [
+        { "id": "ben_arous", "nom": "Ben Arous" },
+        { "id": "hammam_lif", "nom": "Hammam Lif" },
+        { "id": "rades", "nom": "Radès" },
+        { "id": "hammam_chott", "nom": "Hammam Chott" },
+        { "id": "bou_mhel_el_bassatine", "nom": "Bou Mhel el Bassatine" }
+      ]
+    },
+    {
+      "id": "manouba",
+      "nom": "Manouba",
+      "villes": [
+        { "id": "manouba", "nom": "Manouba" },
+        { "id": "den_den", "nom": "Den Den" },
+        { "id": "oued_ellil", "nom": "Oued Ellil" },
+        { "id": "djedeida", "nom": "Djedeida" },
+        { "id": "tebourba", "nom": "Tebourba" }
+      ]
+    },
+    {
+      "id": "nabeul",
+      "nom": "Nabeul",
+      "villes": [
+        { "id": "nabeul", "nom": "Nabeul" },
+        { "id": "hammamet", "nom": "Hammamet" },
+        { "id": "kelibia", "nom": "Kélibia" },
+        { "id": "korba", "nom": "Korba" },
+        { "id": "grombalia", "nom": "Grombalia" }
+      ]
+    },
+    {
+      "id": "bizerte",
+      "nom": "Bizerte",
+      "villes": [
+        { "id": "bizerte", "nom": "Bizerte" },
+        { "id": "menzel_bourguiba", "nom": "Menzel Bourguiba" },
+        { "id": "mateur", "nom": "Mateur" },
+        { "id": "raf_raf", "nom": "Raf Raf" },
+        { "id": "sejnane", "nom": "Sejenane" }
+      ]
+    },
+    {
+      "id": "beja",
+      "nom": "Béja",
+      "villes": [
+        { "id": "beja", "nom": "Béja" },
+        { "id": "medjez_el_bab", "nom": "Medjez el Bab" },
+        { "id": "testour", "nom": "Testour" },
+        { "id": "nefza", "nom": "Nefza" },
+        { "id": "teboursouk", "nom": "Teboursouk" }
+      ]
+    },
+    {
+      "id": "jendouba",
+      "nom": "Jendouba",
+      "villes": [
+        { "id": "jendouba", "nom": "Jendouba" },
+        { "id": "tabarka", "nom": "Tabarka" },
+        { "id": "ain_draham", "nom": "Aïn Draham" },
+        { "id": "fernana", "nom": "Fernana" },
+        { "id": "bou_salem", "nom": "Bou Salem" }
+      ]
+    },
+    {
+      "id": "kef",
+      "nom": "Kef",
+      "villes": [
+        { "id": "le_kef", "nom": "Le Kef" },
+        { "id": "dahmani", "nom": "Dahmani" },
+        { "id": "sers", "nom": "Sers" },
+        { "id": "nebeur", "nom": "Nebeur" },
+        { "id": "tajerouine", "nom": "Tajerouine" }
+      ]
+    },
+    {
+      "id": "siliana",
+      "nom": "Siliana",
+      "villes": [
+        { "id": "siliana", "nom": "Siliana" },
+        { "id": "maktar", "nom": "Maktar" },
+        { "id": "bou_arada", "nom": "Bou Arada" },
+        { "id": "gaafour", "nom": "Gaafour" },
+        { "id": "rouhia", "nom": "Rouhia" }
+      ]
+    },
+    {
+      "id": "sousse",
+      "nom": "Sousse",
+      "villes": [
+        { "id": "sousse", "nom": "Sousse" },
+        { "id": "msaken", "nom": "Msaken" },
+        { "id": "hammam_sousse", "nom": "Hammam Sousse" },
+        { "id": "kalaa_kebira", "nom": "Kalâa Kébira" },
+        { "id": "akouda", "nom": "Akouda" }
+      ]
+    },
+    {
+      "id": "monastir",
+      "nom": "Monastir",
+      "villes": [
+        { "id": "monastir", "nom": "Monastir" },
+        { "id": "moknine", "nom": "Moknine" },
+        { "id": "ksar_hellal", "nom": "Ksar Hellal" },
+        { "id": "sahline", "nom": "Sahline" },
+        { "id": "teboulba", "nom": "Teboulba" }
+      ]
+    },
+    {
+      "id": "mahdia",
+      "nom": "Mahdia",
+      "villes": [
+        { "id": "mahdia", "nom": "Mahdia" },
+        { "id": "ksour_essef", "nom": "Ksour Essef" },
+        { "id": "chebba", "nom": "Chebba" },
+        { "id": "el_jem", "nom": "El Jem" },
+        { "id": "sidi_alouane", "nom": "Sidi Alouane" }
+      ]
+    },
+    {
+      "id": "kairouan",
+      "nom": "Kairouan",
+      "villes": [
+        { "id": "kairouan", "nom": "Kairouan" },
+        { "id": "bou_hajla", "nom": "Bou Hajla" },
+        { "id": "haffouz", "nom": "Haffouz" },
+        { "id": "sbikha", "nom": "Sbikha" },
+        { "id": "nasrallah", "nom": "Nasrallah" }
+      ]
+    },
+    {
+      "id": "kasserine",
+      "nom": "Kasserine",
+      "villes": [
+        { "id": "kasserine", "nom": "Kasserine" },
+        { "id": "sbeitla", "nom": "Sbeitla" },
+        { "id": "feriana", "nom": "Feriana" },
+        { "id": "thala", "nom": "Thala" },
+        { "id": "foussana", "nom": "Foussana" }
+      ]
+    },
+    {
+      "id": "sidi_bouzid",
+      "nom": "Sidi Bouzid",
+      "villes": [
+        { "id": "sidi_bouzid", "nom": "Sidi Bouzid" },
+        { "id": "regueb", "nom": "Regueb" },
+        { "id": "mezzouna", "nom": "Mezzouna" },
+        { "id": "cebbala_ouled_asker", "nom": "Cebbala Ouled Asker" },
+        { "id": "bir_el_hafey", "nom": "Bir El Hafey" }
+      ]
+    },
+    {
+      "id": "sfax",
+      "nom": "Sfax",
+      "villes": [
+        { "id": "sfax", "nom": "Sfax" },
+        { "id": "sakiet_ezzit", "nom": "Sakiet Ezzit" },
+        { "id": "sakiet_eddaier", "nom": "Sakiet Eddaïer" },
+        { "id": "agareb", "nom": "Agareb" },
+        { "id": "jebiniana", "nom": "Jebiniana" }
+      ]
+    },
+    {
+      "id": "gabes",
+      "nom": "Gabès",
+      "villes": [
+        { "id": "gabes", "nom": "Gabès" },
+        { "id": "mareth", "nom": "Mareth" },
+        { "id": "matmata", "nom": "Matmata" },
+        { "id": "nouvelle_matmata", "nom": "Nouvelle Matmata" },
+        { "id": "el_hamma", "nom": "El Hamma" }
+      ]
+    },
+    {
+      "id": "medenine",
+      "nom": "Médenine",
+      "villes": [
+        { "id": "medenine", "nom": "Médenine" },
+        { "id": "ben_gardane", "nom": "Ben Gardane" },
+        { "id": "zarzis", "nom": "Zarzis" },
+        { "id": "djerba_houmt_souk", "nom": "Djerba - Houmt Souk" },
+        { "id": "djerba_midoun", "nom": "Djerba - Midoun" }
+      ]
+    },
+    {
+      "id": "tataouine",
+      "nom": "Tataouine",
+      "villes": [
+        { "id": "tataouine", "nom": "Tataouine" },
+        { "id": "remada", "nom": "Remada" },
+        { "id": "ghomrassen", "nom": "Ghomrassen" },
+        { "id": "bir_lahmar", "nom": "Bir Lahmar" },
+        { "id": "dehiba", "nom": "Dehiba" }
+      ]
+    },
+    {
+      "id": "gafsa",
+      "nom": "Gafsa",
+      "villes": [
+        { "id": "gafsa", "nom": "Gafsa" },
+        { "id": "metlaoui", "nom": "Metlaoui" },
+        { "id": "redeyef", "nom": "Redeyef" },
+        { "id": "moulares", "nom": "Moulares" },
+        { "id": "sened", "nom": "Sened" }
+      ]
+    },
+    {
+      "id": "tozeur",
+      "nom": "Tozeur",
+      "villes": [
+        { "id": "tozeur", "nom": "Tozeur" },
+        { "id": "degache", "nom": "Degache" },
+        { "id": "nefta", "nom": "Nefta" },
+        { "id": "hazoua", "nom": "Hazoua" },
+        { "id": "tameghza", "nom": "Tamerza" }
+      ]
+    },
+    {
+      "id": "kebili",
+      "nom": "Kébili",
+      "villes": [
+        { "id": "kebili", "nom": "Kébili" },
+        { "id": "douz", "nom": "Douz" },
+        { "id": "souk_lahad", "nom": "Souk Lahad" },
+        { "id": "faouar", "nom": "Faouar" },
+        { "id": "rejim_maatoug", "nom": "Rejim Maatoug" }
+      ]
+    },
+    {
+      "id": "zaghouan",
+      "nom": "Zaghouan",
+      "villes": [
+        { "id": "zaghouan", "nom": "Zaghouan" },
+        { "id": "zriba", "nom": "Zriba" },
+        { "id": "bir_mcherga", "nom": "Bir Mcherga" },
+        { "id": "nadhour", "nom": "Nadhour" },
+        { "id": "saouaf", "nom": "Saouaf" }
+      ]
+    }
+  ]
+}
