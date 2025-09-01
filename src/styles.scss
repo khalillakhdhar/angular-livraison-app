@@ -1,0 +1,61 @@
+/* Global styles enhanced with SCSS features */
+
+// SCSS Variables
+$primary-color: #007bff;
+$primary-hover: #0056b3;
+$background-color: #f8f9fa;
+$text-color: #333;
+$font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+$border-radius: 4px;
+
+// SCSS Mixins
+@mixin button-style($bg-color, $hover-color) {
+  background-color: $bg-color;
+  color: white;
+  
+  &:hover {
+    background-color: $hover-color;
+  }
+}
+
+/* Global reset and base styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: $font-family;
+  background-color: $background-color;
+  color: $text-color;
+}
+
+/* Global utility classes */
+.text-center {
+  text-align: center;
+}
+
+.mb-3 {
+  margin-bottom: 1rem;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: $border-radius;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s ease;
+  
+  &.btn-primary {
+    @include button-style($primary-color, $primary-hover);
+  }
+  
+  &.btn-secondary {
+    @include button-style(#6c757d, #545b62);
+  }
+  
+  &.btn-success {
+    @include button-style(#28a745, #1e7e34);
+  }
+}
