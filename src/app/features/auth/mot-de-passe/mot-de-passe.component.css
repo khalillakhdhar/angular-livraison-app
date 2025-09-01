@@ -1,0 +1,21 @@
+.auth-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a0a0a, #1a1a2e, #16213e);
+}
+
+.auth-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 40px;
+  text-align: center;
+  color: white;
+}
+
+h1 {
+  font-family: 'Orbitron', monospace;
+  color: #00ffff;
+}
