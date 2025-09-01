@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-delivery-tracking',
   imports: [],
   templateUrl: './delivery-tracking.html',
-  styleUrl: './delivery-tracking.css'
+  styleUrl: './delivery-tracking.scss'
 })
 export class DeliveryTracking {
 

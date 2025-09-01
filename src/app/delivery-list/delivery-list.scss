@@ -1,0 +1,54 @@
+/* Delivery list styles - Enhanced with SCSS features */
+
+// SCSS Variables
+$primary-color: #007bff;
+$secondary-color: #28a745;
+$border-radius: 8px;
+$grid-gap: 1rem;
+
+// SCSS Mixins
+@mixin card-shadow($intensity: 0.1) {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, $intensity);
+}
+
+@mixin responsive-grid($min-width: 300px) {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax($min-width, 1fr));
+  gap: $grid-gap;
+}
+
+.delivery-list {
+  @include responsive-grid();
+  padding: $grid-gap;
+  
+  .delivery-item {
+    border: 1px solid #ddd;
+    border-radius: $border-radius;
+    padding: $grid-gap;
+    background-color: #f9f9f9;
+    @include card-shadow();
+    
+    &:hover {
+      @include card-shadow(0.15);
+      transform: translateY(-2px);
+      transition: all 0.2s ease;
+    }
+    
+    .delivery-status {
+      font-weight: bold;
+      color: $secondary-color;
+      
+      &.pending {
+        color: #ffc107;
+      }
+      
+      &.completed {
+        color: $secondary-color;
+      }
+      
+      &.cancelled {
+        color: #dc3545;
+      }
+    }
+  }
+}

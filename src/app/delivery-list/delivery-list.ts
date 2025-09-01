@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-delivery-list',
   imports: [],
   templateUrl: './delivery-list.html',
-  styleUrl: './delivery-list.css'
+  styleUrl: './delivery-list.scss'
 })
 export class DeliveryList {
 
