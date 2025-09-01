@@ -1,0 +1,19 @@
+/* Delivery list styles */
+.delivery-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.delivery-item {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  background-color: #f9f9f9;
+}
+
+.delivery-status {
+  font-weight: bold;
+  color: #28a745;
+}
