@@ -14,9 +14,10 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
-import { Utilisateur } from '../../../core/models';
+import { Utilisateur, CreateUtilisateurRequest, UpdateUtilisateurRequest } from '../../../core/models';
 import { UserService } from '../../../core/services';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { UtilisateurFormComponent } from './utilisateur-form.component';
 
 @Component({
   selector: 'app-users-list',
@@ -36,130 +37,142 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
     MatMenuModule,
     MatSnackBarModule,
     MatDialogModule,
-    MatDividerModule
+    MatDividerModule,
+    UtilisateurFormComponent
   ],
   template: `
     <div class="users-container">
-      <div class="page-header">
-        <h1>Gestion des Utilisateurs</h1>
-        <button mat-raised-button color="primary" (click)="createUser()">
-          <mat-icon>person_add</mat-icon>
-          Nouvel utilisateur
-        </button>
-      </div>
+      <!-- User Form (shown when creating/editing) -->
+      <app-utilisateur-form
+        *ngIf="showForm"
+        [user]="selectedUser"
+        (submit)="onFormSubmit($event)"
+        (cancel)="onFormCancel()">
+      </app-utilisateur-form>
 
-      <!-- Filters -->
-      <div class="filters-section">
-        <mat-form-field appearance="outline" class="search-field">
-          <mat-label>Rechercher</mat-label>
-          <input matInput [formControl]="searchControl" placeholder="Nom, email, téléphone...">
-          <mat-icon matSuffix>search</mat-icon>
-        </mat-form-field>
+      <!-- Users List (shown when not creating/editing) -->
+      <div *ngIf="!showForm" class="users-list">
+        <div class="page-header">
+          <h1>Gestion des Utilisateurs</h1>
+          <button mat-raised-button color="primary" (click)="createUser()">
+            <mat-icon>person_add</mat-icon>
+            Nouvel utilisateur
+          </button>
+        </div>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Rôle</mat-label>
-          <mat-select [formControl]="roleFilter" multiple>
-            <mat-option value="admin">Admin</mat-option>
-            <mat-option value="livreur">Livreur</mat-option>
-            <mat-option value="client">Client</mat-option>
-          </mat-select>
-        </mat-form-field>
+        <!-- Filters -->
+        <div class="filters-section">
+          <mat-form-field appearance="outline" class="search-field">
+            <mat-label>Rechercher</mat-label>
+            <input matInput [formControl]="searchControl" placeholder="Nom, email, téléphone...">
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Statut</mat-label>
-          <mat-select [formControl]="statusFilter">
-            <mat-option value="">Tous</mat-option>
-            <mat-option value="true">Actif</mat-option>
-            <mat-option value="false">Inactif</mat-option>
-          </mat-select>
-        </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Rôle</mat-label>
+            <mat-select [formControl]="roleFilter" multiple>
+              <mat-option value="admin">Admin</mat-option>
+              <mat-option value="livreur">Livreur</mat-option>
+              <mat-option value="client">Client</mat-option>
+            </mat-select>
+          </mat-form-field>
 
-        <button mat-stroked-button (click)="clearFilters()">
-          <mat-icon>clear</mat-icon>
-          Effacer filtres
-        </button>
-      </div>
+          <mat-form-field appearance="outline">
+            <mat-label>Statut</mat-label>
+            <mat-select [formControl]="statusFilter">
+              <mat-option value="">Tous</mat-option>
+              <mat-option value="true">Actif</mat-option>
+              <mat-option value="false">Inactif</mat-option>
+            </mat-select>
+          </mat-form-field>
 
-      <!-- Users Table -->
-      <div class="table-container">
-        <table mat-table [dataSource]="filteredUsers" class="users-table" matSort>
-          <!-- Avatar Column -->
-          <ng-container matColumnDef="avatar">
-            <th mat-header-cell *matHeaderCellDef>Photo</th>
-            <td mat-cell *matCellDef="let user">
-              <div class="user-avatar">
-                <img *ngIf="user.photoURL" [src]="user.photoURL" [alt]="user.prenom">
-                <mat-icon *ngIf="!user.photoURL">account_circle</mat-icon>
-              </div>
-            </td>
-          </ng-container>
+          <button mat-stroked-button (click)="clearFilters()">
+            <mat-icon>clear</mat-icon>
+            Effacer filtres
+          </button>
+        </div>
 
-          <!-- Name Column -->
-          <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
-            <td mat-cell *matCellDef="let user">
-              <div class="user-info">
-                <div class="user-name">{{user.prenom}} {{user.nom}}</div>
-                <div class="user-email">{{user.email}}</div>
-              </div>
-            </td>
-          </ng-container>
+        <!-- Users Table -->
+        <div class="table-container">
+          <table mat-table [dataSource]="filteredUsers" class="users-table" matSort>
+            <!-- Avatar Column -->
+            <ng-container matColumnDef="avatar">
+              <th mat-header-cell *matHeaderCellDef>Photo</th>
+              <td mat-cell *matCellDef="let user">
+                <div class="user-avatar">
+                  <img *ngIf="user.photoURL" [src]="user.photoURL" [alt]="user.prenom">
+                  <mat-icon *ngIf="!user.photoURL">account_circle</mat-icon>
+                </div>
+              </td>
+            </ng-container>
 
-          <!-- Role Column -->
-          <ng-container matColumnDef="role">
-            <th mat-header-cell *matHeaderCellDef>Rôle</th>
-            <td mat-cell *matCellDef="let user">
-              <mat-chip-set>
-                <mat-chip [class]="'role-' + user.role">{{user.role | titlecase}}</mat-chip>
-              </mat-chip-set>
-            </td>
-          </ng-container>
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
+              <td mat-cell *matCellDef="let user">
+                <div class="user-info">
+                  <div class="user-name">{{user.prenom}} {{user.nom}}</div>
+                  <div class="user-email">{{user.email}}</div>
+                </div>
+              </td>
+            </ng-container>
 
-          <!-- Location Column -->
-          <ng-container matColumnDef="location">
-            <th mat-header-cell *matHeaderCellDef>Localisation</th>
-            <td mat-cell *matCellDef="let user">
-              <div class="location-info">
-                <div>{{user.ville}}</div>
-                <div class="gouvernorat">{{user.gouvernorat}}</div>
-              </div>
-            </td>
-          </ng-container>
+            <!-- Role Column -->
+            <ng-container matColumnDef="role">
+              <th mat-header-cell *matHeaderCellDef>Rôle</th>
+              <td mat-cell *matCellDef="let user">
+                <mat-chip-set>
+                  <mat-chip [class]="'role-' + user.role">{{user.role | titlecase}}</mat-chip>
+                </mat-chip-set>
+              </td>
+            </ng-container>
 
-          <!-- Phone Column -->
-          <ng-container matColumnDef="phone">
-            <th mat-header-cell *matHeaderCellDef>Téléphone</th>
-            <td mat-cell *matCellDef="let user">{{user.telephone}}</td>
-          </ng-container>
+            <!-- Location Column -->
+            <ng-container matColumnDef="location">
+              <th mat-header-cell *matHeaderCellDef>Localisation</th>
+              <td mat-cell *matCellDef="let user">
+                <div class="location-info">
+                  <div>{{user.ville}}</div>
+                  <div class="gouvernorat">{{user.gouvernorat}}</div>
+                </div>
+              </td>
+            </ng-container>
 
-          <!-- Status Column -->
-          <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef>Statut</th>
-            <td mat-cell *matCellDef="let user">
-              <mat-chip-set>
-                <mat-chip [class]="user.actif ? 'status-active' : 'status-inactive'">
-                  {{user.actif ? 'Actif' : 'Inactif'}}
-                </mat-chip>
-              </mat-chip-set>
-            </td>
-          </ng-container>
+            <!-- Phone Column -->
+            <ng-container matColumnDef="phone">
+              <th mat-header-cell *matHeaderCellDef>Téléphone</th>
+              <td mat-cell *matCellDef="let user">{{user.telephone}}</td>
+            </ng-container>
 
-          <!-- Actions Column -->
-          <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef>Actions</th>
-            <td mat-cell *matCellDef="let user">
-              <button mat-icon-button [matMenuTriggerFor]="userMenu" [matMenuTriggerData]="{user: user}">
-                <mat-icon>more_vert</mat-icon>
-              </button>
-            </td>
-          </ng-container>
+            <!-- Status Column -->
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef>Statut</th>
+              <td mat-cell *matCellDef="let user">
+                <mat-chip-set>
+                  <mat-chip [class]="user.actif ? 'status-active' : 'status-inactive'">
+                    {{user.actif ? 'Actif' : 'Inactif'}}
+                  </mat-chip>
+                </mat-chip-set>
+              </td>
+            </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;" 
-              class="user-row" (click)="viewUser(row)"></tr>
-        </table>
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef>Actions</th>
+              <td mat-cell *matCellDef="let user">
+                <button mat-icon-button [matMenuTriggerFor]="userMenu" [matMenuTriggerData]="{user: user}">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+              </td>
+            </ng-container>
 
-        <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" 
+                class="user-row" (click)="viewUser(row)"></tr>
+          </table>
+
+          <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
+        </div>
       </div>
     </div>
 
@@ -341,6 +354,10 @@ export class UsersListComponent implements OnInit {
   roleFilter = new FormControl<string[]>([]);
   statusFilter = new FormControl('');
 
+  // Form state
+  showForm = false;
+  selectedUser: Utilisateur | null = null;
+
   constructor(
     private userService: UserService,
     private snackBar: MatSnackBar
@@ -412,18 +429,47 @@ export class UsersListComponent implements OnInit {
   }
 
   createUser() {
-    // TODO: Open create user dialog
-    console.log('Create user');
+    this.selectedUser = null;
+    this.showForm = true;
   }
 
   viewUser(user: Utilisateur) {
-    // TODO: Open user details dialog
+    // TODO: Open user details dialog or navigate to details page
     console.log('View user:', user);
   }
 
   editUser(user: Utilisateur) {
-    // TODO: Open edit user dialog
-    console.log('Edit user:', user);
+    this.selectedUser = user;
+    this.showForm = true;
+  }
+
+  async onFormSubmit(data: CreateUtilisateurRequest | UpdateUtilisateurRequest) {
+    try {
+      if (this.selectedUser) {
+        // Update existing user
+        await this.userService.updateUser(this.selectedUser.uid, data as UpdateUtilisateurRequest);
+        this.snackBar.open('Utilisateur modifié avec succès', 'Fermer', { duration: 3000 });
+      } else {
+        // Create new user
+        await this.userService.createUser(data as CreateUtilisateurRequest);
+        this.snackBar.open('Utilisateur créé avec succès', 'Fermer', { duration: 3000 });
+      }
+      
+      this.showForm = false;
+      this.selectedUser = null;
+      await this.loadUsers();
+    } catch (error: any) {
+      this.snackBar.open(
+        error.message || 'Erreur lors de l\'enregistrement', 
+        'Fermer', 
+        { duration: 5000 }
+      );
+    }
+  }
+
+  onFormCancel() {
+    this.showForm = false;
+    this.selectedUser = null;
   }
 
   async resetPassword(user: Utilisateur) {

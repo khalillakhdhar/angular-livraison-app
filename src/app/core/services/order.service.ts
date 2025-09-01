@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Firestore, collection, doc, addDoc, updateDoc, deleteDoc, 
-         getDocs, getDoc, query, where, orderBy, writeBatch } from '@angular/fire/firestore';
+         getDocs, getDoc, query, where, orderBy, writeBatch, serverTimestamp } from '@angular/fire/firestore';
 import { Observable, from } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Commande, CreateCommandeRequest, UpdateCommandeRequest, 
@@ -268,5 +268,52 @@ export class OrderService {
     const random = Math.floor(Math.random() * 9999).toString().padStart(4, '0');
     
     return `CMD${year}${month}${day}${random}`;
+  }
+
+  // Additional methods for form integration
+  async linkOrdersToSortie(orderIds: string[], sortieId: string): Promise<void> {
+    const batch = writeBatch(this.firestore);
+    
+    for (const orderId of orderIds) {
+      const orderRef = doc(this.firestore, 'commandes', orderId);
+      batch.update(orderRef, {
+        sortieId: sortieId,
+        etatLivraison: 'assignée',
+        updatedAt: serverTimestamp()
+      });
+    }
+    
+    await batch.commit();
+  }
+
+  async getOrdersWithFilters(filters: CommandeFilters): Promise<Commande[]> {
+    let queryRef = collection(this.firestore, 'commandes') as any;
+    
+    // Apply filters
+    if (filters.etatLivraison && filters.etatLivraison.length > 0) {
+      queryRef = query(queryRef, where('etatLivraison', 'in', filters.etatLivraison));
+    }
+    
+    if (filters.typeLivraison && filters.typeLivraison.length > 0) {
+      queryRef = query(queryRef, where('typeLivraison', 'in', filters.typeLivraison));
+    }
+    
+    if (filters.gouvernoratDepart) {
+      queryRef = query(queryRef, where('pickupAdresse.gouvernorat', '==', filters.gouvernoratDepart));
+    }
+    
+    if (filters.livreurId) {
+      queryRef = query(queryRef, where('livreurId', '==', filters.livreurId));
+    }
+    
+    const querySnapshot = await getDocs(queryRef);
+    return querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data(),
+      createdAt: doc.data()['createdAt']?.toDate() || new Date(),
+      updatedAt: doc.data()['updatedAt']?.toDate() || new Date(),
+      demarrageAt: doc.data()['demarrageAt']?.toDate() || undefined,
+      livraisonAt: doc.data()['livraisonAt']?.toDate() || undefined,
+    })) as Commande[];
   }
 }
