@@ -122,7 +122,7 @@ import { SortieFormComponent } from './sortie-form.component';
               <td mat-cell *matCellDef="let sortie">
                 <div class="zone-info">
                   <div class="gouvernorat">{{ sortie.gouvernorat }}</div>
-                  <div class="ville-depart">Départ: {{ sortie.villeDépart }}</div>
+                  <div class="ville-depart">Départ: {{ sortie.villeDepart }}</div>
                 </div>
               </td>
             </ng-container>
@@ -380,7 +380,7 @@ export class SortiesComponent implements OnInit {
       filtered = filtered.filter(sortie => 
         sortie.numero.toLowerCase().includes(searchTerm) ||
         sortie.gouvernorat.toLowerCase().includes(searchTerm) ||
-        sortie.villeDépart.toLowerCase().includes(searchTerm)
+        sortie.villeDepart.toLowerCase().includes(searchTerm)
       );
     }
 
@@ -424,7 +424,7 @@ export class SortiesComponent implements OnInit {
         const newSortie = await this.sortieService.createSortie(data as CreateSortieRequest);
         
         // Link commandes to sortie
-        if (data.commandeIds.length > 0) {
+        if (data.commandeIds && data.commandeIds.length > 0) {
           await this.orderService.linkOrdersToSortie(data.commandeIds, newSortie.id);
         }
         

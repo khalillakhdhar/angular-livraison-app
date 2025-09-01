@@ -22,7 +22,7 @@ export class SortieService {
       date: sortieData.date,
       livreurId: sortieData.livreurId,
       gouvernorat: sortieData.gouvernorat,
-      villeDépart: sortieData.villeDépart,
+      villeDepart: sortieData.villeDepart,
       villesDesservies: sortieData.villesDesservies,
       commandeIds: sortieData.commandeIds,
       statut: 'planifiée',

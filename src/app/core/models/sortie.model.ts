@@ -6,7 +6,7 @@ export interface Sortie {
   date: Date;
   livreurId: string;
   gouvernorat: string;
-  villeDépart: string;
+  villeDepart: string;
   villesDesservies: string[];
   commandeIds: string[];
   statut: StatutSortie;
@@ -21,7 +21,7 @@ export interface CreateSortieRequest {
   date: Date;
   livreurId: string;
   gouvernorat: string;
-  villeDépart: string;
+  villeDepart: string;
   villesDesservies: string[];
   commandeIds: string[];
   notes?: string;
@@ -31,7 +31,7 @@ export interface UpdateSortieRequest {
   date?: Date;
   livreurId?: string;
   gouvernorat?: string;
-  villeDépart?: string;
+  villeDepart?: string;
   villesDesservies?: string[];
   commandeIds?: string[];
   statut?: StatutSortie;

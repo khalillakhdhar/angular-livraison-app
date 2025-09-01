@@ -307,13 +307,16 @@ export class OrderService {
     }
     
     const querySnapshot = await getDocs(queryRef);
-    return querySnapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data(),
-      createdAt: doc.data()['createdAt']?.toDate() || new Date(),
-      updatedAt: doc.data()['updatedAt']?.toDate() || new Date(),
-      demarrageAt: doc.data()['demarrageAt']?.toDate() || undefined,
-      livraisonAt: doc.data()['livraisonAt']?.toDate() || undefined,
-    })) as Commande[];
+    return querySnapshot.docs.map(doc => {
+      const data = doc.data() as any;
+      return {
+        id: doc.id,
+        ...data,
+        createdAt: data.createdAt?.toDate() || new Date(),
+        updatedAt: data.updatedAt?.toDate() || new Date(),
+        demarrageAt: data.demarrageAt?.toDate() || undefined,
+        livraisonAt: data.livraisonAt?.toDate() || undefined,
+      } as Commande;
+    });
   }
 }

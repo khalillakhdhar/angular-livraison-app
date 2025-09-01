@@ -12,6 +12,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatListModule } from '@angular/material/list';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
 import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 
@@ -43,7 +44,8 @@ import { Utilisateur } from '../../../core/models/utilisateur.model';
     MatDatepickerModule,
     MatNativeDateModule,
     MatListModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatChipsModule
   ],
   template: `
     <div class="glass-card sortie-form-container">
@@ -555,7 +557,7 @@ export class SortieFormComponent implements OnInit, OnDestroy {
         date: new Date(this.sortie.date),
         livreurId: this.sortie.livreurId,
         gouvernorat: this.sortie.gouvernorat,
-        villeDepart: this.sortie.villeDépart,
+        villeDepart: this.sortie.villeDepart,
         villesDesservies: this.sortie.villesDesservies,
         statut: this.sortie.statut,
         notes: this.sortie.notes || ''
@@ -629,7 +631,7 @@ export class SortieFormComponent implements OnInit, OnDestroy {
           date: formValue.date,
           livreurId: formValue.livreurId,
           gouvernorat: formValue.gouvernorat,
-          villeDépart: formValue.villeDepart,
+          villeDepart: formValue.villeDepart,
           villesDesservies: formValue.villesDesservies,
           commandeIds: this.selectedCommandeIds,
           statut: formValue.statut,
@@ -641,7 +643,7 @@ export class SortieFormComponent implements OnInit, OnDestroy {
           date: formValue.date,
           livreurId: formValue.livreurId,
           gouvernorat: formValue.gouvernorat,
-          villeDépart: formValue.villeDepart,
+          villeDepart: formValue.villeDepart,
           villesDesservies: formValue.villesDesservies,
           commandeIds: this.selectedCommandeIds,
           notes: formValue.notes || undefined
