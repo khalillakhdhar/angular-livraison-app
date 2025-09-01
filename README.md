@@ -11,6 +11,33 @@ Application de livraison Angular futuriste avec interface admin et livreur - 100
 - **Gestion des sorties** : Créer des tournées multi-livraisons avec optimisation de routes
 - **Tableau de bord** : Statistiques en temps réel et actions rapides
 
+### 📋 Formulaires avec Sélecteurs Géographiques
+
+#### Formulaire Utilisateur
+- **Champs** : Email, prénom, nom, rôle (admin|livreur|client), téléphone, gouvernorat, ville, statut actif
+- **Sélecteurs dépendants** : Gouvernorat → Ville automatique
+- **Validations** : Requis sur email, prénom, nom, rôle avec validation d'email
+- **Actions** : Enregistrer, Annuler avec feedback visuel
+
+#### Formulaire Commande
+- **Type de livraison** : Pickup, Livraison, Retour
+- **Adresses multiples** : Pickup et Livraison avec sélecteurs Gouvernorat → Ville
+- **Assignment** : Client (requis), Livreur (optionnel)
+- **Détails** : Prix (≥0), Notes optionnelles
+- **États** : Nouvelle, Assignée, En cours, Livrée, etc.
+
+#### Formulaire Sortie (Tournée)
+- **Planification** : Date, Livreur assigné
+- **Zone géographique** : Gouvernorat, Ville de départ, Villes desservies (multi-select)
+- **Commandes** : Sélection multiple des commandes disponibles par zone
+- **Statut** : Planifiée, En route, Terminée, Annulée
+- **Integration** : Mise à jour automatique des commandes assignées
+
+### 🔄 Persistance Hors-ligne
+- **Firestore offline** : `enableMultiTabIndexedDbPersistence` avec fallback
+- **Synchronisation** : Données disponibles hors-ligne, resynchronisation automatique
+- **Navigation** : Continuité d'utilisation même sans connexion
+
 ### Fonctionnalités Techniques
 - **Authentification** : Firebase Auth (Email/Password + Google)
 - **Base de données** : Firestore avec règles de sécurité
@@ -178,7 +205,7 @@ interface Sortie {
   date: Date;
   livreurId: string;
   gouvernorat: string;
-  villeDépart: string;
+  villeDepart: string;
   villesDesservies: string[];
   commandeIds: string[];
   statut: 'planifiée' | 'en_route' | 'terminée' | 'annulée';
